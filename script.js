@@ -21,6 +21,8 @@ function getComputerChoice() {
   return computerChoice;
 }
 
+//test
+
 function getPlayerChoice() {
   let playerChoice = prompt("Enter rock, paper, or scissors").toLowerCase();
   return playerChoice;   
