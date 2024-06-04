@@ -76,28 +76,43 @@ const youPicked = document.querySelector("#youPicked");
 const computerPicked = document.querySelector("#computerPicked");
 const result = document.querySelector("#result");
 
+// get initial text
 const youPickedText = youPicked.textContent;
 const computerPickedText = computerPicked.textContent;
 const resultText = result.textContent;
 let gameResult;
 
-rock.addEventListener("click", () => {
+function resetText() {
   youPicked.textContent = youPickedText;
   computerPicked.textContent = computerPickedText;
   result.textContent = resultText;
-  let computerChoice = getComputerChoice();
-  gameResult = playRound("rock", computerChoice);
-  youPicked.textContent += "rock";
+}
+
+function displayResult(playerChoice, computerChoice, gameResult) {
+  youPicked.textContent += playerChoice;
   computerPicked.textContent += computerChoice;
   result.textContent += gameResult;
+}
+
+rock.addEventListener("click", () => {
+  resetText();
+  let computerChoice = getComputerChoice();
+  gameResult = playRound("rock", computerChoice);
+  displayResult("rock", computerChoice, gameResult);
 });
 
 paper.addEventListener("click", () => {
-  console.log(playRound("paper",getComputerChoice()))
+  resetText();
+  let computerChoice = getComputerChoice();
+  gameResult = playRound("paper", computerChoice);
+  displayResult("paper", computerChoice, gameResult);
 });
 
 scissors.addEventListener("click", () => {
-  console.log(playRound("scissors",getComputerChoice()))
+  resetText();
+  let computerChoice = getComputerChoice();
+  gameResult = playRound("scissors", computerChoice);
+  displayResult("scissors", computerChoice, gameResult);
 });
 
 
