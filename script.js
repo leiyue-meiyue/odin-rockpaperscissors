@@ -21,8 +21,6 @@ function getComputerChoice() {
   return computerChoice;
 }
 
-//test
-
 function getPlayerChoice() {
   let playerChoice = prompt("Enter rock, paper, or scissors").toLowerCase();
   return playerChoice;   
@@ -57,13 +55,49 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function playGame() {
-  let keepGoingCounter = 0;
-  while (keepGoingCounter < 5) {
-    const playerSelection = getPlayerChoice();
-    const computerSelection = getComputerChoice();
-    console.log(playRound(playerSelection, computerSelection));
-    keepGoingCounter += 1;
-  }
+  // let keepGoingCounter = 0;
+  // while (keepGoingCounter < 5) {
+  //   const playerSelection = getPlayerChoice();
+  //   const computerSelection = getComputerChoice();
+  //   console.log(playRound(playerSelection, computerSelection));
+  //   keepGoingCounter += 1;
+  // }
 }
 
 playGame();
+
+
+
+const rock = document.querySelector("#rock");
+const paper = document.querySelector("#paper");
+const scissors = document.querySelector("#scissors");
+
+const youPicked = document.querySelector("#youPicked");
+const computerPicked = document.querySelector("#computerPicked");
+const result = document.querySelector("#result");
+
+const youPickedText = youPicked.textContent;
+const computerPickedText = computerPicked.textContent;
+const resultText = result.textContent;
+let gameResult;
+
+rock.addEventListener("click", () => {
+  youPicked.textContent = youPickedText;
+  computerPicked.textContent = computerPickedText;
+  result.textContent = resultText;
+  let computerChoice = getComputerChoice();
+  gameResult = playRound("rock", computerChoice);
+  youPicked.textContent += "rock";
+  computerPicked.textContent += computerChoice;
+  result.textContent += gameResult;
+});
+
+paper.addEventListener("click", () => {
+  console.log(playRound("paper",getComputerChoice()))
+});
+
+scissors.addEventListener("click", () => {
+  console.log(playRound("scissors",getComputerChoice()))
+});
+
+
