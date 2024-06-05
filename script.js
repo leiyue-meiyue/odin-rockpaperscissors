@@ -26,47 +26,48 @@ function getPlayerChoice() {
   return playerChoice;   
 }
 
+let playerScore = 0;
+let computerScore = 0;
+
+function incrementPlayerScore() {
+  playerScore += 1;
+}
+
+function incrementComputerScore() {
+  computerScore += 1;
+}
+
 function playRound(playerSelection, computerSelection) {
-  console.log(playerSelection);
-  console.log(computerSelection);
   if (playerSelection === "rock" && computerSelection === "rock") {
     return "It's a tie! Rock is equal to rock."
   } else if (playerSelection === "rock" && computerSelection === "paper") {
+    incrementComputerScore();
     return "You lose! Rock loses to paper."
   } else if (playerSelection === "rock" && computerSelection === "scissors") {
+    incrementPlayerScore();
     return "You win! Rock beats scissors."
   }
 
   if (playerSelection === "paper" && computerSelection === "rock") {
+    incrementPlayerScore();
     return "You win! Paper beats rock."
   } else if (playerSelection === "paper" && computerSelection === "paper") {
     return "It's a tie! Paper is equal to paper."
   } else if (playerSelection === "paper" && computerSelection === "scissors") {
+    incrementComputerScore()
     return "You lose! Paper loses to scissors."
   }
 
   if (playerSelection === "scissors" && computerSelection === "rock") {
+    incrementComputerScore();
     return "You lose! Scissors loses to rock."
   } else if (playerSelection === "scissors" && computerSelection === "paper") {
+    incrementPlayerScore();
     return "You win! Scissors beats paper."
   } else if (playerSelection === "scissors" && computerSelection === "scissors") {
     return "It's a tie! Scissors is equal to scissors."
   }
 }
-
-function playGame() {
-  // let keepGoingCounter = 0;
-  // while (keepGoingCounter < 5) {
-  //   const playerSelection = getPlayerChoice();
-  //   const computerSelection = getComputerChoice();
-  //   console.log(playRound(playerSelection, computerSelection));
-  //   keepGoingCounter += 1;
-  // }
-}
-
-playGame();
-
-
 
 const rock = document.querySelector("#rock");
 const paper = document.querySelector("#paper");
@@ -75,17 +76,25 @@ const scissors = document.querySelector("#scissors");
 const youPicked = document.querySelector("#youPicked");
 const computerPicked = document.querySelector("#computerPicked");
 const result = document.querySelector("#result");
+const playerScoreText = document.querySelector("#playerScore");
+const computerScoreText = document.querySelector("#computerScore");
+
 
 // get initial text
 const youPickedText = youPicked.textContent;
 const computerPickedText = computerPicked.textContent;
 const resultText = result.textContent;
+const playerScoreInitialText = playerScoreText.textContent;
+const computerScoreInitialText = computerScoreText.textContent;
+
 let gameResult;
 
 function resetText() {
   youPicked.textContent = youPickedText;
   computerPicked.textContent = computerPickedText;
   result.textContent = resultText;
+  playerScoreText.textContent = playerScoreInitialText;
+  computerScoreText.textContent = computerScoreInitialText;
 }
 
 function displayResult(playerChoice, computerChoice, gameResult) {
@@ -94,11 +103,14 @@ function displayResult(playerChoice, computerChoice, gameResult) {
   result.textContent += gameResult;
 }
 
+updateScore();
+
 rock.addEventListener("click", () => {
   resetText();
   let computerChoice = getComputerChoice();
   gameResult = playRound("rock", computerChoice);
   displayResult("rock", computerChoice, gameResult);
+  updateScore();
 });
 
 paper.addEventListener("click", () => {
@@ -106,6 +118,7 @@ paper.addEventListener("click", () => {
   let computerChoice = getComputerChoice();
   gameResult = playRound("paper", computerChoice);
   displayResult("paper", computerChoice, gameResult);
+  updateScore();
 });
 
 scissors.addEventListener("click", () => {
@@ -113,6 +126,11 @@ scissors.addEventListener("click", () => {
   let computerChoice = getComputerChoice();
   gameResult = playRound("scissors", computerChoice);
   displayResult("scissors", computerChoice, gameResult);
+  updateScore();
 });
 
 
+function updateScore() {
+  playerScoreText.textContent += playerScore;
+  computerScoreText.textContent += computerScore;
+}
