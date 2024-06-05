@@ -129,8 +129,52 @@ scissors.addEventListener("click", () => {
   updateScore();
 });
 
+const victory = document.querySelector(".victory");
+
+function displayPlayerWin() {
+  const winText = document.createElement("p");
+  winText.textContent = "You win!!";
+  victory.appendChild(winText);
+  displayPlayAgain(winText);
+}
+
+function displayComputerWin() {
+  const winText = document.createElement("p");
+  winText.textContent = "The computer wins! :(";
+  victory.appendChild(winText);
+  displayPlayAgain(winText);
+}
+
+function displayPlayAgain(winText) {
+  const playAgain = document.createElement("button");
+  playAgain.textContent = "Play Again";
+  victory.appendChild(playAgain);
+  rock.style.visibility = 'hidden';
+  paper.style.visibility = 'hidden';
+  scissors.style.visibility = 'hidden';
+  
+  playAgain.addEventListener("click", () => {
+    playerScore = 0;
+    computerScore = 0;
+    resetText();
+    updateScore();
+    winText.remove();
+    playAgain.remove();
+    rock.style.visibility = 'visible';
+    paper.style.visibility = 'visible';
+    scissors.style.visibility = 'visible';
+  })
+}
 
 function updateScore() {
   playerScoreText.textContent += playerScore;
   computerScoreText.textContent += computerScore;
+
+  if (playerScore >= 5) {
+    displayPlayerWin();
+  }
+
+  if (computerScore >= 5) {
+    displayComputerWin();
+  }
 }
